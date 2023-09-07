@@ -9,12 +9,10 @@ GROUP BY g.name
 
 --Количество треков, вошедших в альбомы 2019–2020 годов
 SELECT
-	a.year AS album_year,
 	count(t.id) AS cnt_track
 FROM track t
 INNER JOIN album a ON t.album_id  = a.id 
 WHERE a.year BETWEEN 2019 AND 2020
-GROUP BY a.year
 ;
 
 --Средняя продолжительность треков по каждому альбому
@@ -28,14 +26,14 @@ ORDER BY a.name
 ;
 
 --Все исполнители, которые не выпустили альбомы в 2020 году
-SELECT
-	s.name AS songwriter_name
+SELECT s.name AS songwriter_name
 FROM songwriter s
-INNER JOIN songwriter_album sa ON s.id = sa.songwriter_id 
-INNER JOIN album a ON sa.album_id = a.id 
-WHERE a.year <> 2020
-GROUP BY s.name
-ORDER BY s.name
+WHERE s.name NOT IN (
+		SELECT s.name AS songwriter_name
+		FROM songwriter s
+		INNER JOIN songwriter_album sa ON s.id = sa.songwriter_id
+		INNER JOIN album a ON sa.album_id = a.id
+    	WHERE a.year = 2020)
 ;
 
 --Названия сборников, в которых присутствует конкретный исполнитель (выберите его сами)
