@@ -48,13 +48,6 @@ VALUES('Сборник1', 2018),
 	  ('Сборник4', 2020)
 ;
 
-INSERT INTO songwriter_album 
-VALUES(1, 4),
-	  (2, 1),
-	  (3, 2),
-	  (4, 3)
-;
-
 INSERT INTO collection_track  
 VALUES(1, 6),
 	  (1, 5),
